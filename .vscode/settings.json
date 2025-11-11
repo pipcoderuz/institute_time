@@ -4,6 +4,8 @@
         "HEMIS",
         "mydb",
         "mypass",
-        "myuser"
-    ]
+        "myuser",
+        "stylesheet"
+    ],
+    "postman.settings.dotenv-detection-notification-visibility": false
 }

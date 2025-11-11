@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}Institute Time{% endblock %}</title>
+  
+  {% comment %} todo:  Favicon ico {% endcomment %}
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+  {% comment %} todo:  Favicon ico END {% endcomment %}
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/base.css' %}">
+</head>
+<body>
+  <main class="fluid-container">
+    
+    <div class="row">
+      <div class="col-md-12">
+        {% include 'dashboard/partials/navbar.html' %}
+      </div>
+      <div class="col-md-2">
+        {% include 'dashboard/partials/sidebar.html' %}
+      </div>
+      <div class="col-md-10">
+          {% block main_content %}
+          {% endblock %}
+      </div>
+    </div>
+
+  </main>
+
+  <script src="{% static 'js/navbar.js' %}"> </script>
+  <script src="{% static 'js/sidebar.js' %}"></script>
+</body>
+</html>

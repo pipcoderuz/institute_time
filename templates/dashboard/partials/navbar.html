@@ -1,0 +1,31 @@
+{% load static %}
+
+<nav class="navbar">
+  <div class="nav-left">
+    <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo">
+    <span class="nav-title">pipcoder</span>
+  </div>
+
+  <div class="nav-right">
+    <div class="user-menu">
+        <img src="{% if user.profile_image %}{{ user.profile_image.url }}{% else %}/media/profiles/default-avatar.png{% endif %}" alt="Avatar"
+           class="user-avatar"/>
+
+      <div id="userDropdown" class="dropdown hidden">
+        <form method="post" action="{% url 'accounts:switch_role' %}">
+          {% csrf_token %}
+          <label>Active Role:</label>
+          <select name="role" onchange="this.form.submit()">
+            {% for role in user.roles %}
+              <option value="{{ role }}" {% if role == user.active_role %}selected{% endif %}>
+                {{ role|title }}
+              </option>
+            {% endfor %}
+          </select>
+        </form>
+        <hr>
+        <a href="{% url 'accounts:logout' %}">Logout</a>
+      </div>
+    </div>
+  </div>
+</nav>

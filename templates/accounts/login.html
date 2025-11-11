@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login</title>
+  {% comment %} todo: Favicon ico {% endcomment %}
+  <link rel="apple-touch-icon" sizes="180x180" href="{% static 'favicon/apple-touch-icon.png' %}">
+  <link rel="icon" type="image/png" sizes="32x32" href="{% static 'favicon/favicon-32x32.png' %}">
+  <link rel="icon" type="image/png" sizes="16x16" href="{% static 'favicon/favicon-16x16.png' %}">
+  <link rel="manifest" href="{% static 'favicon/site.webmanifest' %}">
+  {% comment %} todo: Favicon ico END {% endcomment %}
+  <link rel="stylesheet" href="{% static 'css/bootstrap-grid.css' %}" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
+  <link rel="stylesheet" href="{% static 'css/accounts/login.css' %}" />
+</head>
+
+<body>
+  <div class="fluid-container">
+    <form method="post">
+      <div class="row">
+        <header class="col-md-12">
+          <h2>Log In</h2>
+        </header>
+        <br />
+        <div class="col-md-12">
+          <!-- Username input -->
+          <div class="input-block">
+            <span class="input-item">
+              <i class="fa fa-user-circle"></i>
+            </span>
+            <input class="form-input" type="text" id="id_username" name="username" placeholder="Username" required />
+          </div>
+          
+          <!-- Password input -->
+          <div class="input-block">
+            <span class="input-item">
+              <i class="fa fa-key"></i>
+            </span>
+            <input class="form-input" type="password" id="id_password" placeholder="Password" name="password" required />
+            <!-- Show/hide password -->
+            <span>
+              <i class="fa fa-eye" aria-hidden="true" type="button" id="eye"></i>
+            </span>
+          </div>
+          
+          
+          <!-- CSRF token qo'shildi -->
+          {% csrf_token %}
+          <!-- Form errors chiqarish -->
+          {% if form.errors %}
+          <div class="alert alert-danger">
+            Iltimos, to'g'ri username va password kiriting.
+          </div>
+          {% endif %}
+          <div class="input-block">
+            <button class="log-in" type="submit">Log In</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+  <script src="{% static 'js/accounts/login.js' %}"></script>
+</body>
+
+</html>

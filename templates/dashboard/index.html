@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block main_content %}
+    <h2>Welcome, {{ user.username }}</h2>
+    <p>Active role: {{ user.active_role|default:"None" }}</p>
+
+    {% if user.active_role == 'admin' %}
+      <p>You have admin privileges.</p>
+    {% elif user.active_role == 'teacher' %}
+      <p>You can manage your courses.</p>
+    {% else %}
+      <p>You are enrolled as a student.</p>
+    {% endif %}
+{% endblock %}

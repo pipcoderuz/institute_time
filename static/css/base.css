@@ -1,0 +1,74 @@
+/* Fonts Form Google Font ::- https://fonts.google.com/  -:: */
+@import url('https://fonts.googleapis.com/css?family=Abel|Abril+Fatface|Alegreya|Arima+Madurai|Dancing+Script|Dosis|Merriweather|Oleo+Script|Overlock|PT+Serif|Pacifico|Playball|Playfair+Display|Share|Unica+One|Vibur');
+/* partials css */
+@import url('./navbar.css');
+@import url('./sidebar.css');
+@import url('./bootstrap-grid.css');
+
+:root {
+    --sidebar-color: #39444d;
+    --sidebar-dark-color: #29353a;
+    --nav-color: #2096f3;
+    --bg-color: #f5f6f7;
+    --text-color: #333333;
+    --white-color: #ffffff;
+    --border-color: #dddddd;
+    
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.col-md-12{
+    border: 1px solid red;
+}
+
+/* Start body rules */
+body {
+    background: var(--bg-color);
+    font-family: 'Vibur', cursive;
+    /*   the main font */
+    font-family: 'Abel', sans-serif;
+}
+
+.navbar {
+    background: var(--nav-color);
+    color: var(--white-color);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    width: 60px;
+}
+
+.user-menu {
+    position: relative;
+}
+
+.user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: absolute;
+    right: 0;
+    top: 50px;
+    background: var(--white-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.hidden {
+    display: none;
+}
