@@ -14,10 +14,10 @@
   {% comment %} todo:  Favicon ico END {% endcomment %}
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css">
   <link rel="stylesheet" href="{% static 'css/base.css' %}">
+  {% block extra_head %}{% endblock %}
 </head>
 <body>
-  <main class="fluid-container">
-    
+  <main class="container-fluid">  
     <div class="row">
       <div class="col-md-12">
         {% include 'dashboard/partials/navbar.html' %}

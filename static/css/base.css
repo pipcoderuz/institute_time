@@ -6,9 +6,10 @@
 @import url('./bootstrap-grid.css');
 
 :root {
-    --sidebar-color: #39444d;
+    --sidebar-color: #2c3e50;
     --sidebar-dark-color: #29353a;
     --nav-color: #2096f3;
+    --nav-dark-color: #1c87db;
     --bg-color: #f5f6f7;
     --text-color: #333333;
     --white-color: #ffffff;
@@ -22,53 +23,10 @@
     box-sizing: border-box;
 }
 
-.col-md-12{
-    border: 1px solid red;
-}
-
 /* Start body rules */
 body {
     background: var(--bg-color);
-    font-family: 'Vibur', cursive;
+    /* font-family: 'Vibur', cursive; */
     /*   the main font */
     font-family: 'Abel', sans-serif;
-}
-
-.navbar {
-    background: var(--nav-color);
-    color: var(--white-color);
-    padding: 10px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.logo {
-    width: 60px;
-}
-
-.user-menu {
-    position: relative;
-}
-
-.user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    cursor: pointer;
-}
-
-.dropdown {
-    position: absolute;
-    right: 0;
-    top: 50px;
-    background: var(--white-color);
-    color: var(--text-color);
-    border: 1px solid var(--border-color);
-    padding: 10px;
-    border-radius: 6px;
-}
-
-.hidden {
-    display: none;
 }

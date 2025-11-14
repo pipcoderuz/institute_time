@@ -1,31 +1,55 @@
 {% load static %}
 
-<nav class="navbar">
-  <div class="nav-left">
+<header class="main-header row">
+  <a class="logo-link col-md-2" href="/">
     <img src="{% static 'images/logo.png' %}" alt="Logo" class="logo">
-    <span class="nav-title">pipcoder</span>
-  </div>
-
-  <div class="nav-right">
-    <div class="user-menu">
-        <img src="{% if user.profile_image %}{{ user.profile_image.url }}{% else %}/media/profiles/default-avatar.png{% endif %}" alt="Avatar"
-           class="user-avatar"/>
-
-      <div id="userDropdown" class="dropdown hidden">
-        <form method="post" action="{% url 'accounts:switch_role' %}">
-          {% csrf_token %}
-          <label>Active Role:</label>
-          <select name="role" onchange="this.form.submit()">
-            {% for role in user.roles %}
-              <option value="{{ role }}" {% if role == user.active_role %}selected{% endif %}>
-                {{ role|title }}
-              </option>
-            {% endfor %}
-          </select>
-        </form>
-        <hr>
-        <a href="{% url 'accounts:logout' %}">Logout</a>
-      </div>
+    <span class="logo-title">pipcoder</span>
+  </a>
+  <nav class="col-md-10">
+    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+      <i class="fa-solid fa-bars"></i>
+    </a>
+    <div class="navbar-custom-menu">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" id="langBtn" class="dropdown-toggle" data-toggle="dropdown">O‘zbekcha </a>
+          <ul id="langDropdown" class="dropdown-menu hidden">
+            <li>
+              <a href="/">O‘zbekcha </a>
+            </li>
+            <li>
+              <a href="/">Ўзбекча </a>
+            </li>
+            <li>
+              <a href="/">Русский </a>
+            </li>
+            <li>
+              <a href="/">English </a>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown user-menu">
+          <img id="userImage" src="{% if user.profile_image %}{{ user.profile_image.url }}{% else %}/media/profiles/default-avatar.png{% endif %}" alt="Avatar" class="user-avatar" />
+          <ul id="userDropdown" class="dropdown-menu hidden">
+            <li class="dropdown-header">Foydalanuvchi rollari</li>
+            <li>
+              <form method="post" action="{% url 'accounts:switch_role' %}">
+                {% csrf_token %}
+                <select name="role" onchange="this.form.submit()">
+                  {% for role in user.roles %}
+                  <option value="{{ role }}" {% if role == user.active_role %}selected{% endif %}>
+                    {{ role|title }}
+                  </option>
+                  {% endfor %}
+                </select>
+              </form>
+            </li>
+            <li>
+              <a href="{% url 'accounts:logout' %}">Logout</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
-  </div>
-</nav>
+  </nav>
+</header>

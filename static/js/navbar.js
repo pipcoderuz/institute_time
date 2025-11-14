@@ -1,4 +1,14 @@
-document.getElementById("userDropdown").addEventListener("click", function () {
-    console.log("ol");
-    document.getElementById("userDropdown").classList.toggle("hidden");
+userImage = document.getElementById("userImage");
+userDropdown = document.getElementById("userDropdown");
+
+userImage.addEventListener("click", function () {
+    userDropdown.classList.toggle("hidden");
 });
+
+langBtn = document.getElementById("langBtn");
+langDropdown = document.getElementById("langDropdown");
+
+langBtn.addEventListener("click", function(){
+    langDropdown.classList.toggle("hidden");
+});
+
