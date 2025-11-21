@@ -1,237 +1,168 @@
-/* Asosiy header stil */
-.main-header {
-    background: var(--nav-color);
-    color: white;
-    padding: 0;
-    margin: 0;
-    height: 60px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    display: flex;
-    align-items: center;
-}
-
-/* Logo link */
-.logo-link {
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    color: white;
-    padding: 0 20px;
-    height: 60px;
-    transition: background-color 0.3s ease;
-}
-
-.logo-link:hover {
-    background-color: var(--nav-dark-color);
-    text-decoration: none;
-}
-
-/* Logo rasm */
-.logo {
-    height: 35px;
-    width: 35px;
-    margin-right: 10px;
-    object-fit: contain;
-}
-
-/* Logo sarlavha */
-.logo-title {
-    font-size: 1.4rem;
-    font-weight: bold;
-    color: #ecf0f1;
-}
-
-/* Navigation qismi */
-.main-header nav {
+/* Navbar Styles */
+.navbar {
+    background-color: var(--nav-color);
+    padding: 15px 25px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
-    height: 60px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
 }
 
-/* Sidebar toggle tugmasi */
-.sidebar-toggle {
-    color: #ecf0f1;
-    background: none;
+.navbar-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.navbar-left h1 {
+    font-size: 1.5rem;
+    color: var(--white-color);
+}
+.navbar-left .logo-link {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    
+}
+
+.navbar-left .logo{
+    width: 50px;
+    height: 50px;
+}
+
+.toggle-btn {
     border: none;
+    color: var(--sidebar-color);
+    background-color: var(--white-color);
     font-size: 1.2rem;
-    padding: 8px 12px;
-    border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
-.sidebar-toggle:hover {
-    background-color: #34495e;
-    color: white;
+.toggle-btn:hover {
+    color: var(--white-color);
+    background-color: var(--nav-color);
 }
 
-/* Navbar menu */
-.navbar-custom-menu {
+.navbar-right {
     display: flex;
     align-items: center;
+    gap: 20px;
 }
 
-.navbar-nav {
-    display: flex;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    align-items: center;
-}
 
-/* Dropdown umumiy stil */
-.dropdown {
+
+.user-profile {
     position: relative;
-    margin-left: 15px;
-}
-
-.dropdown-toggle {
-    color: #ecf0f1;
-    text-decoration: none;
-    padding: 8px 15px;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     cursor: pointer;
 }
 
-.dropdown-toggle:hover {
-    background-color: #34495e;
-    color: white;
-    text-decoration: none;
+.user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
 }
 
-/* Dropdown menu */
+
+/* Dropdown asosiy stillari */
 .dropdown-menu {
     position: absolute;
     top: 100%;
     right: 0;
-    background: white;
-    min-width: 160px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    border-radius: 4px;
-    padding: 5px 0;
-    margin: 2px 0 0;
-    list-style: none;
+    background-color: var(--white-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px ;
+    min-width: 200px;
     z-index: 1000;
+    margin-top: 5px;
 }
 
+/* Yashirin holat */
 .dropdown-menu.hidden {
     display: none;
 }
 
-.dropdown-menu li {
-    margin: 0;
-}
-
-.dropdown-menu a {
-    color: #2c3e50;
-    text-decoration: none;
-    padding: 8px 15px;
-    display: block;
-    transition: background-color 0.3s ease;
-}
-
-.dropdown-menu a:hover {
-    background-color: #f8f9fa;
-    color: #2c3e50;
-}
-
 /* Dropdown header */
 .dropdown-header {
-    padding: 8px 15px;
-    font-size: 0.85rem;
-    color: #6c757d;
-    font-weight: bold;
-    border-bottom: 1px solid #e9ecef;
-    margin-bottom: 5px;
+    padding: 12px 16px;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 0.9rem;
 }
 
-/* User menu */
-.user-menu {
-    display: flex;
-    align-items: center;
+/* Dropdown elementlari */
+.dropdown-menu li {
+    list-style: none;
+    border-bottom: 1px solid var(--border-color);
 }
 
-.user-avatar {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid #ecf0f1;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
+.dropdown-menu li:last-child {
+    border-bottom: none;
 }
 
-.user-avatar:hover {
-    border-color: #3498db;
-}
-
-/* Form va select elementlari */
+/* Form va select stillari */
 .dropdown-menu form {
-    padding: 8px 15px;
+    padding: 12px 16px;
 }
 
 .dropdown-menu select {
     width: 100%;
-    padding: 6px 10px;
-    border: 1px solid #ddd;
+    padding: 8px 12px;
+    border: 1px solid var(--border-color);
     border-radius: 4px;
-    background: white;
-    color: #2c3e50;
+    background-color: var(--white-color);
     font-size: 0.9rem;
     cursor: pointer;
+    outline: none;
 }
 
 .dropdown-menu select:focus {
-    outline: none;
-    border-color: #3498db;
+    border-color: var(--nav-color);
 }
 
-/* Responsive dizayn */
+/* Link stillari */
+.dropdown-menu a {
+    display: block;
+    padding: 12px 16px;
+    color: var(--danger-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.2s;
+}
+
+/* Hover effektlar */
+.dropdown-menu a:hover , .dropdown-menu li:hover {
+    background-color: var(--bg-color)
+}
+
+
+/* Responsive Design */
 @media (max-width: 768px) {
-    .main-header {
-        height: 50px;
+
+    .mobile-toggle {
+        display: block;
     }
 
-    .logo-link {
-        height: 50px;
-        padding: 0 15px;
-    }
-
-    .logo {
-        height: 30px;
-        width: 30px;
-    }
-
-    .logo-title {
-        font-size: 1.2rem;
-    }
-
-    .main-header nav {
-        padding: 0 15px;
-        height: 50px;
-    }
-
-    .user-avatar {
-        width: 35px;
-        height: 35px;
-    }
-
-    .dropdown-toggle {
-        padding: 6px 12px;
-        font-size: 0.9rem;
-    }
 }
 
-@media (max-width: 576px) {
-    .logo-title {
-        display: none;
+@media (max-width: 480px) {
+    .navbar {
+        padding: 15px;
     }
 
-    .dropdown:first-child {
+    .navbar-right {
+        gap: 10px;
+    }
+
+    .user-profile span {
         display: none;
     }
 }

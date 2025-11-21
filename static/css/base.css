@@ -3,17 +3,19 @@
 /* partials css */
 @import url('./navbar.css');
 @import url('./sidebar.css');
-@import url('./bootstrap-grid.css');
+/* @import url('./bootstrap-grid.css'); */
 
 :root {
     --sidebar-color: #2c3e50;
     --sidebar-dark-color: #29353a;
     --nav-color: #2096f3;
     --nav-dark-color: #1c87db;
+    --danger-color: #e74c3c;
     --bg-color: #f5f6f7;
     --text-color: #333333;
     --white-color: #ffffff;
     --border-color: #dddddd;
+    --transparent-color: rgba(0, 0, 0, 0,0.4);
     
 }
 
@@ -21,12 +23,51 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Abel', sans-serif;
 }
 
 /* Start body rules */
 body {
-    background: var(--bg-color);
-    /* font-family: 'Vibur', cursive; */
-    /*   the main font */
-    font-family: 'Abel', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+}
+
+.container {
+    display: flex;
+    min-width: 100%;
+    min-height: 100vh;
+}
+
+
+/* Main Content Styles */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin-left: 250px;
+    transition: margin-left 0.3s ease;
+}
+
+.main-content.expanded {
+    margin-left: 70px;
+}
+
+.main-content.full-width {
+    margin-left: 0;
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .main-content {
+        margin-left: 0 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .content {
+        padding: 15px;
+    }
 }

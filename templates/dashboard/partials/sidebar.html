@@ -1,21 +1,109 @@
 {% load static %}
 
-<div class="row sidebar">
-    <div class="col-md-12">
-        <div class="sidebar-heading"><i class="nav-logo fa-brands fa-unsplash"></i> DASHBOARD</div>
-        <ul class="sidebar-menu flex-column">
-            <li class="sidebar-menu-item">
-                <a class="sidebar-menu-link" href="/"><i class="nav-logo fa-regular fa-house"></i> Home</a>
-            </li>
-            <li class="sidebar-menu-item">
-                <a class="sidebar-menu-link" href="#">Profile</a>
-            </li>
-            <li class="sidebar-menu-item">
-                <a class="sidebar-menu-link" href="#">Settings</a>
-            </li>
-            <li class="sidebar-menu-item">
-                <a class="sidebar-menu-link" href="#">Reports</a>
-            </li>
-        </ul>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <img src="{% static 'images/tmii_logo_white.png' %}" alt="tmii_logo" class="tmii_logo">
+        <h2>TIMEEDU</h2>
     </div>
+    <ul class="sidebar-menu">
+        <!-- Simple menu item -->
+        <li class="menu">
+            <a class="menu-item active" href="/">
+                <i>📊</i>
+                <span>Dashboard</span>
+                <div class="tooltip">Dashboard</div>
+            </a>
+        </li>
+
+
+        <!-- Talabalar menyusi -->
+        <li class="menu">
+            <div class="menu-item has-submenu">
+                <i>🎓</i>
+                <span>Talabalar</span>
+                <div class="tooltip">Talabalar</div>
+            </div>
+            <ul class="submenu">
+                <li>
+                    <div class="submenu-header">Talabalar</div>
+                </li>
+                <li>
+                    <a class="submenu-item" href="/students/specializations">
+                        <i>📚</i>
+                        <span>Mutaxassisliklar</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="submenu-item" href="/students/database">
+                        <i>🗃️</i>
+                        <span>Talabalar bazasi</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="submenu-item" href="/students/groups">
+                        <i>👥</i>
+                        <span>Akademik guruhlar</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="submenu-item" href="/students/assign">
+                        <i>🔗</i>
+                        <span>Talabani biriktirish</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Menu item with submenu -->
+        <li class="menu">
+            <div class="menu-item has-submenu">
+                <i>👥</i>
+                <span>Users</span>
+                <div class="tooltip">Users</div>
+            </div>
+            <ul class="submenu">
+                <li>
+                    <div class="submenu-header">Users</div>
+                </li>
+                <li>
+                    <a class="submenu-item" href="/users/list">
+                        <i>📋</i>
+                        <span>All Users</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="submenu-item" href="/users/add">
+                        <i>➕</i>
+                        <span>Add User</span>
+                    </a>
+                </li>
+                <li>
+                    <a class="submenu-item" href="/users/roles">
+                        <i>👑</i>
+                        <span>User Roles</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Simple menu item -->
+        <li class="menu">
+            <a class="menu-item" href="/analitycs">
+                <i>📈</i>
+                <span>Analytics</span>
+                <div class="tooltip">Analytics</div>
+            </a>
+        </li>
+
+        <!-- Settings -->
+        <li class="menu">
+            <a class="menu-item" href="/settings">
+                <i>⚙️</i>
+                <span>Settings</span>
+                <div class="tooltip">Settings</div>
+            </a>
+        </li>
+
+    </ul>
 </div>
