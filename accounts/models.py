@@ -25,6 +25,8 @@ class CustomUser(AbstractUser, PermissionsMixin):
     active_role = models.CharField(max_length=20, blank=True, null=True, default='student')
     profile_image = models.ImageField(upload_to='profiles/', blank=True, null=True, default='profiles/default-avatar.png')
 
+    hemis_student_id = models.BigIntegerField(unique=True, null=True, blank=True)  # bogʻlash uchun
+
     def has_role(self, role):
         """Does have user role?"""
         return role in self.roles

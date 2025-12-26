@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     
     # APPS
     'accounts',
+    'hemis_integration',
     
     
 ]
