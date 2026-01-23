@@ -53,10 +53,8 @@ def _save_curriculum_subjects_to_db(all_subjects):
             subject_obj = subject_map.get(subject_data.get("id"))
 
             department_data = s.get("department")
-            department_id = department_data.get(
-                "id") if department_data else None
-            department_obj = department_map.get(
-                department_id) if department_id else None
+            department_id = department_data.get("id") if department_data else None
+            department_obj = department_map.get(department_id) if department_id else None
             
             # active ni majburiy True/False qilish (null boʻlmaydi!)
             active_value = s.get("active")
@@ -118,18 +116,11 @@ def _save_curriculum_subjects_to_db(all_subjects):
 
         if to_create:
             CurriculumSubject.objects.bulk_create(to_create)
-            print(f"Yangi qoʻshildi: {len(to_create)} ta")
-
-        if to_update:
-            print(f"Yangilandi: {len(to_update)} ta")
 
         missing_ids = set(existing_map.keys()) - incoming_ids
         deactivated_count = 0
         if missing_ids:
-            deactivated_count = CurriculumSubject.objects.filter(
-                api_id__in=missing_ids).update(active=False)
-            if deactivated_count:
-                print(f"Nofaol qilindi: {deactivated_count} ta")
+            deactivated_count = CurriculumSubject.objects.filter(api_id__in=missing_ids).update(active=False)
 
     return {
         "total_subjects": len(all_subjects),
@@ -142,14 +133,12 @@ def _save_curriculum_subjects_to_db(all_subjects):
 async def sync_curriculum_subjects():
     url_endpoint = "curriculum-subject-list"
 
-    print("HEMISdan oʻquv rejasi fanlari yuklanmoqda...")
     all_subjects = await fetch_all_pages(
         url_endpoint=url_endpoint,
         item_key="items"
     )
 
     if not all_subjects:
-        print("Diqqat: Oʻquv rejasi fanlari yuklanmadi.")
         return {
             "total_subjects": 0,
             "created": 0,

@@ -13,7 +13,6 @@ def _save_auditoriums_to_db(all_auditoriums):
     (sync_departments.py bilan bir xil logika)
     """
     if not all_auditoriums:
-        print("Diqqat: Auditoriyalar roʻyxati boʻsh.")
         return {
             "total_auditoriums": 0,
             "created": 0,
@@ -96,7 +95,6 @@ async def sync_auditoriums():
     )
 
     if not all_auditoriums:
-        print("Diqqat: Auditoriyalar yuklanmadi yoki API boʻsh qaytardi.")
         return {
             "total_auditoriums": 0,
             "created": 0,

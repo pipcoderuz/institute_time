@@ -93,10 +93,6 @@ def _save_curriculums_to_db(all_curriculums):
             deactivated_count = Curriculum.objects.filter(
                 api_id__in=missing_ids).update(active=False)
 
-
-        if deactivated_count:
-            print(f"Nofaol qilindi: {deactivated_count} ta")
-
     return {
         "total_curriculums": len(all_curriculums),
         "created": len(to_create),
@@ -117,7 +113,6 @@ async def sync_curriculums():
     )
 
     if not all_curriculums:
-        print("Diqqat: Oʻquv rejalar yuklanmadi yoki API boʻsh qaytardi.")
         return {
             "total_curriculums": 0,
             "created": 0,
