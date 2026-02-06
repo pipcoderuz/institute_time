@@ -1,6 +1,8 @@
 # university/models/curriculum.py
 
 from django.db import models
+from .specialty import Specialty
+from .department import Department
 
 
 class Curriculum(models.Model):
@@ -10,8 +12,24 @@ class Curriculum(models.Model):
     api_id = models.BigIntegerField(unique=True)  # API dan "id"
     name = models.CharField(max_length=255, db_index=True)
 
-    specialty_name = models.CharField(max_length=255)
-    department_name = models.CharField(max_length=255)
+    # Yangi: ForeignKey'lar
+    specialty = models.ForeignKey(
+        Specialty,
+        on_delete=models.SET_NULL,          # specialty o'chirilsa, curriculum qoladi
+        null=True,
+        blank=True,
+        related_name='curriculums',
+        db_index=True
+    )
+
+    department = models.ForeignKey(
+        Department,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        related_name='curriculums',
+        db_index=True
+    )
 
     education_year_name = models.CharField(max_length=50)
     education_year_current = models.BooleanField(default=False)
@@ -26,6 +44,7 @@ class Curriculum(models.Model):
     semester_count = models.PositiveIntegerField()
     education_period = models.PositiveIntegerField()  # yillarda
 
+    self_hash = models.CharField(max_length=32, blank=True, db_index=True)
     accepted = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
 
@@ -37,5 +56,7 @@ class Curriculum(models.Model):
         verbose_name_plural = "Oʻquv rejalar"
         indexes = [
             models.Index(fields=['name']),
+            models.Index(fields=['specialty']),
+            models.Index(fields=['department']),
         ]
         ordering = ['-education_year_name', 'name']

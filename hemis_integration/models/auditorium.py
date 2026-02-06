@@ -7,8 +7,7 @@ class Auditorium(models.Model):
     """
     Auditoriya (xona) modeli.
     """
-    code = models.CharField(max_length=50, unique=True,
-                            db_index=True)  # "code" unique
+    code = models.CharField(max_length=50, unique=True,db_index=True)  # "code" unique
     name = models.CharField(max_length=255, db_index=True)
 
     # "Ma’ruza", "Seminar" va h.k.
@@ -16,6 +15,7 @@ class Auditorium(models.Model):
     building_name = models.CharField(max_length=255)
     volume = models.PositiveIntegerField()  # sigʻim (oʻrin soni)
 
+    self_hash = models.CharField(max_length=32, blank=True, db_index=True)
     active = models.BooleanField(default=True)
 
     def __str__(self):

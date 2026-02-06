@@ -46,6 +46,7 @@ class CurriculumSubject(models.Model):
     semester_name = models.CharField(max_length=50, blank=True)
     credit = models.PositiveIntegerField(null=True, blank=True)
     active = models.BooleanField(default=True)
+    self_hash = models.CharField(max_length=32, blank=True, db_index=True)
 
     created_at = models.DateTimeField(null=True, blank=True)
     updated_at = models.DateTimeField(null=True, blank=True)

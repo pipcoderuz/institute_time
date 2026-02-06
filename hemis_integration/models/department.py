@@ -12,6 +12,7 @@ class Department(models.Model):
 
     structure_type_name = models.CharField(max_length=100)
     active = models.BooleanField(default=True)
+    self_hash = models.CharField(max_length=32, blank=True, db_index=True)
 
     def __str__(self):
         return f"{self.name} ({self.code})"

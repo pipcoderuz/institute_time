@@ -1,17 +1,43 @@
-# university/sync_subject_metas.py
+# university/sync_subjects.py
 
 from asgiref.sync import sync_to_async
+import hashlib
 from django.db import transaction
 from ..models.subjects import Subjects
 from .api_client import fetch_all_pages
 
 
+IMPORTANT_FIELDS_FOR_HASH = [
+    "code",
+    "name",
+    "subject_group_name",
+    "education_type_name",
+    "active",
+    # agar kelajakda qo'shimcha muhim maydonlar (masalan credit, semester) paydo bo'lsa, shu yerga qo'shing
+]
+
+
+def compute_subject_meta_hash(data: dict) -> str:
+    """
+    Muhim maydonlardan hash hosil qiladi.
+    Oddiy string birlashtirish + MD5.
+    """
+    parts = []
+    for field in IMPORTANT_FIELDS_FOR_HASH:
+        value = data.get(field)
+        if value is None:
+            parts.append("")
+        elif isinstance(value, (int, float, bool)):
+            parts.append(str(value))
+        else:
+            parts.append(str(value).strip())
+
+    raw_string = "|".join(parts)
+    return hashlib.md5(raw_string.encode('utf-8')).hexdigest()
+
+
 @sync_to_async
 def _save_subject_metas_to_db(all_subject_metas):
-    """
-    Upsert + oʻchirilganlarni inactive qilish + batafsil statistika qaytarish
-    (sync_departments.py bilan bir xil logika)
-    """
     if not all_subject_metas:
         return {
             "total_subject_metas": 0,
@@ -21,58 +47,85 @@ def _save_subject_metas_to_db(all_subject_metas):
         }
 
     with transaction.atomic():
-        # Kelgan api_id lar
-        incoming_ids = {s["id"] for s in all_subject_metas}
+        
 
-        # Mavjudlarni olish (tezlik uchun)
-        existing_metas = Subjects.objects.filter(api_id__in=incoming_ids).values(
-            'api_id', 'code', 'name', 'subject_group_name', 'education_type_name', 'active'
-        )
-        existing_map = {em["api_id"]: em for em in existing_metas}
+        # Mavjudlarni olish – hash + muhim fieldlar
+        incoming_ids = {c["id"] for c in all_subject_metas}
+
+        # Mavjud subject meta'larni olish: hash + muhim maydonlar
+        fields_to_fetch = ['api_id', 'self_hash'] + IMPORTANT_FIELDS_FOR_HASH
+        existing = Subjects.objects.filter(
+            api_id__in=incoming_ids).values(*fields_to_fetch)
+
+        existing_map = {e["api_id"]: e for e in existing}
 
         to_create = []
         to_update = []
 
         for s in all_subject_metas:
-            api_id = s["id"]
+            api_id = s.get("id")
+            if not api_id:
+                continue  # agar id bo'lmasa o'tkazib yuboramiz
+
             subject_group = s.get("subjectGroup", {})
             education_type = s.get("educationType", {})
 
             current_data = {
-                "code": s["code"],
-                "name": s["name"],
-                "subject_group_name": subject_group.get("name", ""),
-                "education_type_name": education_type.get("name", ""),
-                "active": s["active"],
+                "code": s.get("code", "").strip(),
+                "name": s.get("name", "").strip(),
+                "subject_group_name": subject_group.get("name", "").strip(),
+                "education_type_name": education_type.get("name", "").strip(),
+                "active": s.get("active", True),
             }
 
-            existing = existing_map.get(api_id)
+            # Hash uchun ma'lumot tayyorlash
+            hash_data = {
+                "code": current_data["code"],
+                "name": current_data["name"],
+                "subject_group_name": current_data["subject_group_name"],
+                "education_type_name": current_data["education_type_name"],
+                "active": current_data["active"],
+            }
 
-            if not existing:
-                # Yangi fan meta
-                to_create.append(Subjects(api_id=api_id, **current_data))
+            new_hash = compute_subject_meta_hash(hash_data)
+
+            existing_rec = existing_map.get(api_id)
+
+            if not existing_rec:
+                # Yangi subject meta
+                new_obj = Subjects(
+                    api_id=api_id,
+                    self_hash=new_hash,
+                    **current_data
+                )
+                to_create.append(new_obj)
             else:
-                # Oʻzgarganligini tekshirish
-                changed = False
-                for key, value in current_data.items():
-                    if existing[key] != value:
-                        changed = True
-                        break
-
-                if changed:
-                    Subjects.objects.filter(api_id=api_id).update(**current_data)
+                # Hash farq qilsa → update
+                if existing_rec["self_hash"] != new_hash:
+                    Subjects.objects.filter(api_id=api_id).update(
+                        self_hash=new_hash,
+                        name=current_data["name"],
+                        subject_group_name=current_data["subject_group_name"],
+                        education_type_name=current_data["education_type_name"],
+                        active=current_data["active"],
+                    )
                     to_update.append(api_id)
 
-        # Yangi fan meta-maʼlumotlarini qoʻshish
+        # Yangi yozuvlarni batch tarzda qo'shish
         if to_create:
-            Subjects.objects.bulk_create(to_create)
+            Subjects.objects.bulk_create(
+                to_create,
+                batch_size=300,
+                ignore_conflicts=True   # duplicate api_id bo'lsa xato chiqmasin
+            )
 
-        # HEMISdan oʻchirilgan fan meta-maʼlumotlarini inactive qilish
+        # HEMISdan o'chirilganlarni inactive qilish
         missing_ids = set(existing_map.keys()) - incoming_ids
         deactivated_count = 0
         if missing_ids:
             deactivated_count = Subjects.objects.filter(
-                api_id__in=missing_ids).update(active=False)
+                api_id__in=missing_ids
+            ).update(active=False)
 
     return {
         "total_subject_metas": len(all_subject_metas),
@@ -102,5 +155,4 @@ async def sync_subjects():
         }
 
     result = await _save_subject_metas_to_db(all_subject_metas)
-
     return result

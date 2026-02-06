@@ -17,6 +17,7 @@ class Subjects(models.Model):
     education_type_name = models.CharField(max_length=100, blank=True)  # "Bakalavr", "Magistr"
 
     active = models.BooleanField(default=True)
+    self_hash = models.CharField(max_length=32, blank=True, db_index=True)
 
     def __str__(self):
         return f"{self.code} - {self.name} ({self.education_type_name or 'nomaʼlum'})"
